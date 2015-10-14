@@ -723,6 +723,13 @@ static bool dt_exif_read_exif_data(dt_image_t *img, Exiv2::ExifData &exifData)
       dt_strlcpy_to_utf8(img->exif_datetime_taken, 20, pos, exifData);
     }
 
+    // Read subseconds if available
+    if((pos = exifData.findKey(Exiv2::ExifKey("Exif.Photo.SubSecTimeOriginal"))) != exifData.end()
+       && pos->size())
+    {
+      dt_strlcpy_to_utf8(img->exif_subsec_taken, 4, pos, exifData);
+    }
+    
     if((pos = exifData.findKey(Exiv2::ExifKey("Exif.Image.Artist"))) != exifData.end() && pos->size())
     {
       std::string str = pos->print(&exifData);
