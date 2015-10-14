@@ -202,6 +202,7 @@ const dt_gtkentry_completion_spec *dt_gtkentry_get_default_path_compl_list()
           { "EXIF_HOUR", N_("$(EXIF_HOUR) - EXIF hour") },
           { "EXIF_MINUTE", N_("$(EXIF_MINUTE) - EXIF minute") },
           { "EXIF_SECOND", N_("$(EXIF_SECOND) - EXIF second") },
+          { "EXIF_SUBSEC", N_("$(EXIF_SUBSEC) - EXIF hundredths of a second") },
           { "EXIF_ISO", N_("$(EXIF_ISO) - ISO value") },
           { "STARS", N_("$(STARS) - star rating") },
           { "LABELS", N_("$(LABELS) - colorlabels") },
