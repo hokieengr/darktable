@@ -980,6 +980,7 @@ void dt_image_init(dt_image_t *img)
   g_strlcpy(img->filename, "(unknown)", sizeof(img->filename));
   img->exif_model[0] = img->exif_maker[0] = img->exif_lens[0] = '\0';
   g_strlcpy(img->exif_datetime_taken, "0000:00:00 00:00:00", sizeof(img->exif_datetime_taken));
+  g_strlcpy(img->exif_subsec_taken, "000", sizeof(img->exif_subsec_taken));
   img->exif_crop = 1.0;
   img->exif_exposure = 0;
   img->exif_aperture = 0;
