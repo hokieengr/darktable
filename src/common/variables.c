@@ -117,6 +117,7 @@ gboolean _variable_get_value(dt_variables_params_t *params, gchar *variable, gch
   /* image exif time */
   gboolean have_exif_tm = FALSE;
   int exif_iso = 100;
+  int exif_subsec = 0;
   int version = 0;
   int stars = 0;
   struct tm exif_tm = { 0 };
@@ -128,6 +129,8 @@ gboolean _variable_get_value(dt_variables_params_t *params, gchar *variable, gch
     {
       exif_tm.tm_year -= 1900;
       exif_tm.tm_mon--;
+      // the following code assumes we have subsec tag if we have EXIF time. Bad assumption?
+      sscanf(img->exif_subsec_taken, "%d", &exif_subsec);
       have_exif_tm = TRUE;
     }
     exif_iso = img->exif_iso;
@@ -163,6 +166,8 @@ gboolean _variable_get_value(dt_variables_params_t *params, gchar *variable, gch
     snprintf(value, value_len, "%.2d", (have_exif_tm ? exif_tm.tm_min : tim->tm_min));
   else if(g_strcmp0(variable, "$(EXIF_SECOND)") == 0 && (got_value = TRUE))
     snprintf(value, value_len, "%.2d", (have_exif_tm ? exif_tm.tm_sec : tim->tm_sec));
+  else if(g_strcmp0(variable, "$(EXIF_SUBSEC)") == 0 && (got_value = TRUE))
+    snprintf(value, value_len, "%.2d", (have_exif_tm ? exif_subsec : 0));
   else if(g_strcmp0(variable, "$(EXIF_ISO)") == 0 && (got_value = TRUE))
     snprintf(value, value_len, "%d", exif_iso);
   else if(g_strcmp0(variable, "$(ID)") == 0 && (got_value = TRUE))
